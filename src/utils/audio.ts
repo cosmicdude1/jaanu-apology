@@ -5,6 +5,7 @@
 
 class RomanticAudioManager {
   private ctx: AudioContext | null = null;
+  private audioEl: HTMLAudioElement | null = null;
   private isPlayingMusic = false;
   private musicInterval: number | null = null;
   private masterGain: GainNode | null = null;
@@ -61,14 +62,8 @@ class RomanticAudioManager {
     osc.stop(startTime + duration + 0.1);
   }
 
-  /**
-   * Start generative ambient music loop
-   */
-  public startMusic() {
-    this.initContext();
-    if (this.isPlayingMusic) return;
-    this.isPlayingMusic = true;
-
+  private startSynthesizedMusic() {
+    if (!this.isPlayingMusic) return;
     const playChordCycle = () => {
       if (!this.ctx || !this.isPlayingMusic) return;
 
@@ -88,14 +83,48 @@ class RomanticAudioManager {
     };
 
     playChordCycle();
-    this.musicInterval = window.setInterval(playChordCycle, 3600);
+    if (!this.musicInterval) {
+      this.musicInterval = window.setInterval(playChordCycle, 3600);
+    }
   }
 
   /**
-   * Pause/stop generative ambient music
+   * Start generative ambient music loop or play dedicated audio file
+   */
+  public startMusic() {
+    this.initContext();
+    if (this.isPlayingMusic) return;
+    this.isPlayingMusic = true;
+
+    // Check if the dedicated audio track exists
+    try {
+      if (!this.audioEl) {
+        this.audioEl = new Audio('/audio/jaanu-voice-note.mp3');
+        this.audioEl.loop = true;
+        this.audioEl.volume = 0.55;
+      }
+
+      const playPromise = this.audioEl.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Fallback to synthesized ambient chord arpeggios
+          this.startSynthesizedMusic();
+        });
+      }
+    } catch {
+      this.startSynthesizedMusic();
+    }
+  }
+
+  /**
+   * Pause/stop background music
    */
   public stopMusic() {
     this.isPlayingMusic = false;
+    if (this.audioEl) {
+      this.audioEl.pause();
+      this.audioEl.currentTime = 0;
+    }
     if (this.musicInterval !== null) {
       clearInterval(this.musicInterval);
       this.musicInterval = null;
