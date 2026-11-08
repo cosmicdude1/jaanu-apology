@@ -14,10 +14,17 @@ export const BackgroundAtmosphere: React.FC<BackgroundAtmosphereProps> = ({ curr
   const getSceneTones = () => {
     switch (currentScene) {
       case 'apology':
+      case 'personal-apology':
         return {
           orb1: 'rgba(238, 203, 198, 0.45)', // gentle reflective rose
           orb2: 'rgba(245, 222, 215, 0.35)',
           orb3: 'rgba(230, 195, 190, 0.30)',
+        };
+      case 'diwali':
+        return {
+          orb1: 'rgba(251, 191, 36, 0.40)', // warm festive golden candle glow
+          orb2: 'rgba(245, 218, 208, 0.50)',
+          orb3: 'rgba(224, 138, 60, 0.30)', // subtle marigold warmth
         };
       case 'letter':
       case 'envelope':

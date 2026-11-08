@@ -19,6 +19,7 @@ import { PersonalApologySection } from './sections/PersonalApologySection';
 import { PromiseSection } from './sections/PromiseSection';
 import { MemoriesSection } from './sections/MemoriesSection';
 import { HerGallerySection } from './sections/HerGallerySection';
+import { DiwaliSection } from './sections/DiwaliSection';
 import { LetterSection } from './sections/LetterSection';
 import { EnvelopeSection } from './sections/EnvelopeSection';
 import { EndingSection } from './sections/EndingSection';
@@ -87,6 +88,8 @@ export const App: React.FC = () => {
         return <MemoriesSection />;
       case 'her-gallery':
         return <HerGallerySection />;
+      case 'diwali':
+        return <DiwaliSection />;
       case 'letter':
         return <LetterSection />;
       case 'envelope':

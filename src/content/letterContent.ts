@@ -12,6 +12,7 @@ export type SceneId =
   | 'promise'
   | 'memories'
   | 'her-gallery'
+  | 'diwali'
   | 'letter'
   | 'envelope'
   | 'ending';
@@ -64,6 +65,19 @@ export interface FestivalConfig {
   message: string;
   blessing: string;
   imagePath?: string; // Optional path under public/images/festival/
+}
+
+export interface DiwaliSceneConfig {
+  headline: string;
+  greeting: string;
+  subtitle: string;
+  intro: string;
+  paragraphs: string[];
+  closing: string;
+  diyaPrompt: string;
+  celebrateButtonLabel: string;
+  celebrateResponse: string;
+  marigoldDetail: string;
 }
 
 export interface PromiseVow {
@@ -134,7 +148,10 @@ export interface LetterContentConfig {
     photos: HerPhotoItem[];
   };
 
-  // 9. Festival & Diwali Wishes
+  // 9. Dedicated Diwali Scene ("A Little Diwali Wish For You")
+  diwali: DiwaliSceneConfig;
+
+  // 10. Festival & Diwali Wishes Legacy Config
   festival: FestivalConfig;
 
   // 10. Main Letter
@@ -351,7 +368,31 @@ export const websiteConfig: LetterContentConfig = {
   },
 
   // ===================================================================
-  // 8. FESTIVAL & DIWALI CONFIGURATION
+  // 8. DEDICATED DIWALI CELEBRATION SCENE ("A Little Diwali Wish For You")
+  // ===================================================================
+  diwali: {
+    headline: 'A Little Diwali Wish For You',
+    greeting: 'Happy Diwali, my love. 🪔❤️',
+    subtitle: 'Wishing light, warmth, and quiet peace to the one who illuminates my world.',
+    intro: 'A quiet, heartfelt Diwali wish from bettu to his dearest jaanu.',
+    paragraphs: [
+      'Happy Diwali, my love.',
+      'I wish this Diwali brings you all the happiness, peace, warmth, and beautiful moments that you deserve.',
+      'And if there’s one little wish I have for this Diwali, it’s that we get to celebrate many more festivals together—sharing smiles, memories, and all the little things that make us happy.',
+      'I’m sorry for the moments when I made your heart feel heavy.',
+      'Today, I just want to wish you a beautiful Diwali and remind you how special you are to me.',
+      'Happy Diwali, sweetheart. I love you.',
+    ],
+    closing: 'Always wishing your world to be filled with light — bettu',
+    diyaPrompt: 'Touch the diya to brighten its light',
+    celebrateButtonLabel: 'Celebrate this little moment with me',
+    celebrateResponse:
+      'May our days ahead be filled with shared smiles, laughter, and peaceful light together. Happy Diwali, jaanu! ✨',
+    marigoldDetail: 'Bound in affection, sealed with care',
+  },
+
+  // ===================================================================
+  // 9. FESTIVAL & DIWALI CONFIGURATION
   // ===================================================================
   festival: {
     title: 'Happy Diwali, My Jaanu',
@@ -445,8 +486,9 @@ export const websiteConfig: LetterContentConfig = {
     { id: 'promise', index: 3, navTitle: 'My Promise', shortLabel: 'Vows' },
     { id: 'memories', index: 4, navTitle: 'Video Calls', shortLabel: 'Calls' },
     { id: 'her-gallery', index: 5, navTitle: 'Gallery of You', shortLabel: 'You' },
-    { id: 'letter', index: 6, navTitle: 'The Letter', shortLabel: 'Letter' },
-    { id: 'envelope', index: 7, navTitle: 'A Keepsake', shortLabel: 'Unseal' },
-    { id: 'ending', index: 8, navTitle: 'Forever', shortLabel: 'Peace' },
+    { id: 'diwali', index: 6, navTitle: 'Diwali Wish', shortLabel: 'Diwali' },
+    { id: 'letter', index: 7, navTitle: 'The Letter', shortLabel: 'Letter' },
+    { id: 'envelope', index: 8, navTitle: 'A Keepsake', shortLabel: 'Unseal' },
+    { id: 'ending', index: 9, navTitle: 'Forever', shortLabel: 'Peace' },
   ],
 };

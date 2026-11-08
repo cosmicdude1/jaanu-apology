@@ -22,7 +22,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
   return (
     <nav
       aria-label="Story Progress"
-      className="fixed top-4 left-1/2 -translate-x-1/2 z-40 px-3.5 sm:px-4 py-2 rounded-full glass-blush shadow-sm flex items-center space-x-1 sm:space-x-2.5"
+      className="fixed top-4 left-1/2 -translate-x-1/2 z-40 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full glass-blush shadow-sm flex items-center space-x-0.5 sm:space-x-2 max-w-[85vw]"
     >
       {scenes.map((scene, idx) => {
         const isCurrent = idx === currentStep;
