@@ -8,8 +8,10 @@
 export type SceneId =
   | 'opening'
   | 'apology'
+  | 'personal-apology'
   | 'promise'
   | 'memories'
+  | 'her-gallery'
   | 'letter'
   | 'envelope'
   | 'ending';
@@ -21,15 +23,47 @@ export interface SceneMeta {
   shortLabel: string;
 }
 
-export interface MemoryItem {
+export interface VideoCallMemory {
   id: string;
-  imagePath: string; // Local asset path
+  imagePath: string; // Asset path under public/images/memories/
   caption: string;
   date?: string;
-  shortDescription?: string;
   location?: string;
+  shortDescription?: string;
   tag?: string;
   rotation?: number;
+}
+
+export type MemoryItem = VideoCallMemory;
+
+export interface HerPhotoItem {
+  id: string;
+  imagePath: string; // Asset path under public/images/her/
+  title: string;
+  caption: string;
+  date?: string;
+  note?: string;
+  tag?: string;
+  aspectRatio?: 'portrait' | 'square';
+}
+
+export interface ApologyPhotoConfig {
+  imagePath: string; // Asset path under public/images/apology/
+  heading: string;
+  subtitle: string;
+  supportingMessage: string;
+  caption: string;
+  badge: string;
+  diwaliWish: string;
+  loveMessage: string;
+}
+
+export interface FestivalConfig {
+  title: string;
+  greeting: string;
+  message: string;
+  blessing: string;
+  imagePath?: string; // Optional path under public/images/festival/
 }
 
 export interface PromiseVow {
@@ -48,21 +82,17 @@ export interface EndingResponseOption {
 }
 
 export interface LetterContentConfig {
-  // 1. Personal Identifiers & Real Photographs
+  // 1. Personal Identifiers
   girlfriendName: string;
   senderName: string;
   petNameForHer: string;
+
+  // 2. Real Photographs & Media Configurations
   herMainPhoto: string;
   herSecondPhoto: string;
   meSorryPhoto: string;
-  meSorryDetails: {
-    headline: string;
-    caption: string;
-    diwaliWish: string;
-    loveNote: string;
-  };
 
-  // 2. Opening Section
+  // 3. Opening Section
   opening: {
     greeting: string;
     title: string;
@@ -71,7 +101,7 @@ export interface LetterContentConfig {
     buttonLabel: string;
   };
 
-  // 3. Apology Section
+  // 4. Apology Section (Accountability & Reflections)
   apology: {
     headline: string;
     subtitle: string;
@@ -82,7 +112,10 @@ export interface LetterContentConfig {
     }[];
   };
 
-  // 4. Promise Section
+  // 5. Personal Apology Photograph Section ("I wish I could say this in person")
+  apologyPhoto: ApologyPhotoConfig;
+
+  // 6. Promise Section
   promise: {
     headline: string;
     subtitle: string;
@@ -90,10 +123,21 @@ export interface LetterContentConfig {
     vows: PromiseVow[];
   };
 
-  // 5. Memory Gallery
-  memories: MemoryItem[];
+  // 7. Video Call Memories Gallery
+  memories: VideoCallMemory[];
 
-  // 6. Main Letter
+  // 8. Her Photo Gallery ("A Little Gallery of You")
+  herGallery: {
+    headline: string;
+    subtitle: string;
+    intro: string;
+    photos: HerPhotoItem[];
+  };
+
+  // 9. Festival & Diwali Wishes
+  festival: FestivalConfig;
+
+  // 10. Main Letter
   letter: {
     salutation: string;
     intro: string;
@@ -103,7 +147,7 @@ export interface LetterContentConfig {
     postscript?: string;
   };
 
-  // 7. Envelope Keepsake
+  // 11. Envelope Keepsake
   envelope: {
     label: string;
     headline: string;
@@ -111,7 +155,7 @@ export interface LetterContentConfig {
     closingNote: string;
   };
 
-  // 8. Ending Section
+  // 12. Ending Section
   ending: {
     headline: string;
     subtitle: string;
@@ -122,27 +166,22 @@ export interface LetterContentConfig {
     responseOptions: EndingResponseOption[];
   };
 
-  // 9. Navigation Scenes
+  // 13. Navigation Scenes
   scenes: SceneMeta[];
 }
 
 export const websiteConfig: LetterContentConfig = {
   // ===================================================================
-  // 1. NAMES & REAL PHOTOGRAPHS
+  // 1. NAMES & IDENTIFIERS
   // ===================================================================
   girlfriendName: 'Chesta',
   senderName: 'bettu',
   petNameForHer: 'jaanu',
 
-  herMainPhoto: '/images/her/her-main.jpg',
+  // Default Asset Paths (Organized in public/images/)
+  herMainPhoto: '/images/her/her-1.jpg',
   herSecondPhoto: '/images/her/her-2.jpg',
-  meSorryPhoto: '/images/me-sorry/bettu-sorry.jpg',
-  meSorryDetails: {
-    headline: 'Forgive your bettu, jaanu',
-    caption: 'Holding my ears with genuine remorse, asking for my jaanu’s forgiveness.',
-    diwaliWish: 'Wishing my sweetest Chesta a joyful, blessed, and happy Diwali.',
-    loveNote: 'I love you so, so much, jaanu. Always and forever.',
-  },
+  meSorryPhoto: '/images/apology/my-apology.jpg',
 
   // ===================================================================
   // 2. OPENING SECTION
@@ -157,7 +196,7 @@ export const websiteConfig: LetterContentConfig = {
   },
 
   // ===================================================================
-  // 3. APOLOGY SECTION
+  // 3. APOLOGY SECTION (Accountability & Reflections)
   // ===================================================================
   apology: {
     headline: 'A Sincere Apology',
@@ -179,7 +218,22 @@ export const websiteConfig: LetterContentConfig = {
   },
 
   // ===================================================================
-  // 4. PROMISE SECTION
+  // 4. PERSONAL APOLOGY PHOTOGRAPH SECTION
+  // ===================================================================
+  apologyPhoto: {
+    imagePath: '/images/apology/my-apology.jpg',
+    heading: 'I wish I could say this to you in person.',
+    subtitle: 'Seeing you upset broke my heart. Here is bettu holding his ears for his jaanu.',
+    supportingMessage:
+      'This is me, saying sorry from the bottom of my heart. I know words alone cannot undo what happened, but I want my actions to show you how much I mean it.',
+    caption: 'Holding my ears with genuine remorse and asking for my jaanu’s forgiveness.',
+    badge: 'Holding Ears For Jaanu',
+    diwaliWish: 'Wishing my sweetest Chesta a joyful, blessed, and happy Diwali.',
+    loveMessage: 'I love you so, so much, jaanu. Always and forever.',
+  },
+
+  // ===================================================================
+  // 5. PROMISE SECTION
   // ===================================================================
   promise: {
     headline: 'What You Mean to Me',
@@ -215,68 +269,101 @@ export const websiteConfig: LetterContentConfig = {
   },
 
   // ===================================================================
-  // 5. MEMORY GALLERY - REAL VIDEO CALL & PORTRAIT PHOTOGRAPHS
+  // 6. VIDEO CALL MEMORIES GALLERY (From public/images/memories/)
   // ===================================================================
   memories: [
     {
       id: 'mem-1',
-      imagePath: '/images/video-call/videocall-1.jpg',
+      imagePath: '/images/memories/videocall-1.jpg',
       caption: 'Late night video calls where hours vanished like minutes',
       date: 'Midnight Smiles',
       location: 'Across Our Screens',
       shortDescription:
         'No matter how long or tiring the day was, seeing your sleepy smile through the screen made everything peaceful and right at home.',
       tag: 'Video Call Moment 1',
-      rotation: -1.5,
+      rotation: -1.2,
     },
     {
       id: 'mem-2',
-      imagePath: '/images/video-call/videocall-2.jpg',
+      imagePath: '/images/memories/videocall-2.jpg',
       caption: 'Uncontrollable laughter only you and I could share',
       date: 'Pure Happiness',
       location: 'Our Safe Space',
       shortDescription:
         'Your silly expressions and sweet giggles have always been bettu’s absolute favorite sound in the world.',
       tag: 'Video Call Moment 2',
-      rotation: 1.8,
+      rotation: 1.5,
     },
     {
       id: 'mem-3',
-      imagePath: '/images/video-call/videocall-3.jpg',
+      imagePath: '/images/memories/videocall-3.jpg',
       caption: 'Quiet calls when just seeing you brought warmth',
       date: 'Comforting Silence',
       location: 'Close at Heart',
       shortDescription:
         'Even in moments when neither of us spoke a word, having you on the other end gave me all the comfort I ever needed.',
       tag: 'Video Call Moment 3',
-      rotation: -1.2,
+      rotation: -1.0,
     },
     {
       id: 'mem-4',
-      imagePath: '/images/video-call/videocall-4.jpg',
+      imagePath: '/images/memories/videocall-4.jpg',
       caption: 'Screens apart, but closer than ever in my heart',
       date: 'Forever Connected',
       location: 'Always With You',
       shortDescription:
         'Distance has never had any power over how deeply bettu loves, respects, and cherishes his jaanu.',
       tag: 'Video Call Moment 4',
-      rotation: 1.6,
-    },
-    {
-      id: 'mem-5',
-      imagePath: '/images/her/her-2.jpg',
-      caption: 'That radiant smile of yours that lights up my whole world',
-      date: 'Simply Breathtaking',
-      location: 'Locked In My Soul',
-      shortDescription:
-        'Chesta, you look so effortlessly radiant here. Every time I see this picture, I remember why my heart belongs to you.',
-      tag: 'My Lovely Jaanu',
-      rotation: -1.0,
+      rotation: 1.4,
     },
   ],
 
   // ===================================================================
-  // 6. MAIN LETTER - SINCERE, DIWALI WISH & ENDLESS DEVOTION
+  // 7. HER PHOTO GALLERY ("A Little Gallery of You")
+  // ===================================================================
+  herGallery: {
+    headline: 'A Little Gallery of You',
+    subtitle: 'The grace, the warmth, and the light you carry so effortlessly.',
+    intro:
+      'Chesta, every photograph of you captures something truly rare—a sweetness and poise that takes my breath away every single time.',
+    photos: [
+      {
+        id: 'her-photo-1',
+        imagePath: '/images/her/her-1.jpg',
+        title: 'The Girl Who Holds My Heart',
+        caption: 'Pure elegance and warmth in every glance.',
+        date: 'Forever Radiant',
+        note: 'You carry so much grace, jaanu. Looking at this picture always reminds bettu how blessed he is.',
+        tag: 'My Chesta',
+        aspectRatio: 'portrait',
+      },
+      {
+        id: 'her-photo-2',
+        imagePath: '/images/her/her-2.jpg',
+        title: 'That Unforgettable Smile',
+        caption: 'The smile that brightens my entire world.',
+        date: 'Breathtaking',
+        note: 'When you smile like this, every worry fades away. You are truly one of a kind, my jaanu.',
+        tag: 'My Jaanu',
+        aspectRatio: 'portrait',
+      },
+    ],
+  },
+
+  // ===================================================================
+  // 8. FESTIVAL & DIWALI CONFIGURATION
+  // ===================================================================
+  festival: {
+    title: 'Happy Diwali, My Jaanu',
+    greeting: 'Wishing my sweetest Chesta a glowing, peaceful Festival of Lights.',
+    message:
+      'As we celebrate Diwali, my only wish is for your days to be filled with endless light, laughter, and calm. I promise to be someone who adds light to your life, never darkness.',
+    blessing: 'May this year bring you abundant joy, health, and quiet peace, Chesta.',
+    imagePath: '/images/apology/my-apology.jpg',
+  },
+
+  // ===================================================================
+  // 9. MAIN LETTER - SINCERE, DIWALI WISH & ENDLESS DEVOTION
   // ===================================================================
   letter: {
     salutation: 'Dearest Chesta, my sweetest jaanu,',
@@ -295,7 +382,7 @@ export const websiteConfig: LetterContentConfig = {
   },
 
   // ===================================================================
-  // 7. ENVELOPE KEEPSAKE
+  // 10. ENVELOPE KEEPSAKE
   // ===================================================================
   envelope: {
     label: 'To my jaanu, Chesta',
@@ -306,7 +393,7 @@ export const websiteConfig: LetterContentConfig = {
   },
 
   // ===================================================================
-  // 8. ENDING SECTION
+  // 11. ENDING SECTION
   // ===================================================================
   ending: {
     headline: 'Forever in My Heart',
@@ -349,15 +436,17 @@ export const websiteConfig: LetterContentConfig = {
   },
 
   // ===================================================================
-  // 9. SCENES NAVIGATION
+  // 12. SCENES NAVIGATION (Narrative Story Arc)
   // ===================================================================
   scenes: [
     { id: 'opening', index: 0, navTitle: 'Welcome', shortLabel: 'Start' },
     { id: 'apology', index: 1, navTitle: 'My Apology', shortLabel: 'Sorry' },
-    { id: 'promise', index: 2, navTitle: 'My Promise', shortLabel: 'Vows' },
-    { id: 'memories', index: 3, navTitle: 'Our Story', shortLabel: 'Memories' },
-    { id: 'letter', index: 4, navTitle: 'The Letter', shortLabel: 'Letter' },
-    { id: 'envelope', index: 5, navTitle: 'A Keepsake', shortLabel: 'Unseal' },
-    { id: 'ending', index: 6, navTitle: 'Forever', shortLabel: 'Heart' },
+    { id: 'personal-apology', index: 2, navTitle: 'In Person', shortLabel: 'Heart' },
+    { id: 'promise', index: 3, navTitle: 'My Promise', shortLabel: 'Vows' },
+    { id: 'memories', index: 4, navTitle: 'Video Calls', shortLabel: 'Calls' },
+    { id: 'her-gallery', index: 5, navTitle: 'Gallery of You', shortLabel: 'You' },
+    { id: 'letter', index: 6, navTitle: 'The Letter', shortLabel: 'Letter' },
+    { id: 'envelope', index: 7, navTitle: 'A Keepsake', shortLabel: 'Unseal' },
+    { id: 'ending', index: 8, navTitle: 'Forever', shortLabel: 'Peace' },
   ],
 };

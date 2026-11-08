@@ -15,8 +15,10 @@ import { NavigationControls } from './components/NavigationControls';
 // Sections in exact narrative sequence
 import { OpeningSection } from './sections/OpeningSection';
 import { ApologySection } from './sections/ApologySection';
+import { PersonalApologySection } from './sections/PersonalApologySection';
 import { PromiseSection } from './sections/PromiseSection';
 import { MemoriesSection } from './sections/MemoriesSection';
+import { HerGallerySection } from './sections/HerGallerySection';
 import { LetterSection } from './sections/LetterSection';
 import { EnvelopeSection } from './sections/EnvelopeSection';
 import { EndingSection } from './sections/EndingSection';
@@ -77,10 +79,14 @@ export const App: React.FC = () => {
         return <OpeningSection onBegin={handleNext} />;
       case 'apology':
         return <ApologySection />;
+      case 'personal-apology':
+        return <PersonalApologySection />;
       case 'promise':
         return <PromiseSection />;
       case 'memories':
         return <MemoriesSection />;
+      case 'her-gallery':
+        return <HerGallerySection />;
       case 'letter':
         return <LetterSection />;
       case 'envelope':

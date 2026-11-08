@@ -120,13 +120,23 @@ export const PolaroidCard: React.FC<PolaroidCardProps> = ({
             title={onExpand ? 'Click to view complete uncropped photo' : undefined}
           >
             {imageUrl ? (
-              <img
-                src={imageUrl}
-                alt={displayTitle}
-                loading="lazy"
-                decoding="async"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+              <>
+                {/* Ambient Soft Blur Fill of the exact screenshot to fill the frame naturally */}
+                <img
+                  src={imageUrl}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover blur-sm scale-110 opacity-35 pointer-events-none"
+                />
+                {/* Foreground Crisp Screenshot - faces and smiles are completely preserved */}
+                <img
+                  src={imageUrl}
+                  alt={displayTitle}
+                  loading="lazy"
+                  decoding="async"
+                  className="relative z-10 w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                />
+              </>
             ) : null}
 
             {/* Soft atmospheric gradient */}
