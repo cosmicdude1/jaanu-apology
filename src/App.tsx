@@ -98,7 +98,7 @@ export const App: React.FC = () => {
           />
         );
       case 'diwali':
-        return <DiwaliSection />;
+        return <DiwaliSection onContinue={handleNext} />;
       case 'ending':
         return <EndingSection onRestart={handleRestart} />;
       default:
@@ -142,28 +142,37 @@ export const App: React.FC = () => {
         {/* Delicate Floating Petals & Heart Particles */}
         <FloatingPetals petalCount={12} heartCount={5} />
 
-        {/* Top Global Controls */}
-        <header className="relative z-40 w-full px-4 sm:px-6 pt-4 pb-2">
-          <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <span className="hidden md:inline font-editorial text-xs tracking-[0.25em] uppercase text-[#85283f] font-semibold">
-              {websiteConfig.opening.title}
-            </span>
+        {/* Top Global Controls - Fixed Header Bar with Frosting */}
+        <header className="fixed top-0 inset-x-0 z-40 w-full px-3 sm:px-6 py-2 sm:py-2.5 pt-[max(0.5rem,env(safe-area-inset-top))] bg-[#fbf5f2]/90 backdrop-blur-md border-b border-[#ecd9b5]/40 shadow-xs">
+          <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
+            <div className="flex items-center space-x-2 shrink-0">
+              <span className="hidden md:inline font-editorial text-xs tracking-[0.22em] uppercase text-[#85283f] font-semibold">
+                {websiteConfig.opening.title}
+              </span>
+              <span className="md:hidden font-editorial text-[11px] tracking-wider uppercase text-[#85283f] font-semibold">
+                For {websiteConfig.girlfriendName}
+              </span>
+            </div>
 
-            <ProgressIndicator
-              currentStep={currentSceneIndex}
-              scenes={scenes}
-              onSelectStep={handleSelectScene}
-            />
+            <div className="flex-1 flex justify-center max-w-md mx-auto">
+              <ProgressIndicator
+                currentStep={currentSceneIndex}
+                scenes={scenes}
+                onSelectStep={handleSelectScene}
+              />
+            </div>
 
-            <MusicToggle
-              isPlaying={isPlayingMusic}
-              onToggle={handleToggleMusic}
-            />
+            <div className="shrink-0 flex items-center">
+              <MusicToggle
+                isPlaying={isPlayingMusic}
+                onToggle={handleToggleMusic}
+              />
+            </div>
           </div>
         </header>
 
         {/* Main Narrative Stage with AnimatePresence Transitions */}
-        <main className="relative z-20 flex-1 flex items-center justify-center pt-20 sm:pt-24 pb-28 sm:pb-32 px-3 sm:px-6">
+        <main className="relative z-20 flex-1 flex items-center justify-center pt-16 sm:pt-20 pb-24 sm:pb-28 px-3 sm:px-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSceneId}

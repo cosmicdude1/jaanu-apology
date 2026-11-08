@@ -22,7 +22,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
   return (
     <nav
       aria-label="Story Progress"
-      className="fixed top-4 left-1/2 -translate-x-1/2 z-40 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full glass-blush shadow-sm flex items-center space-x-0.5 sm:space-x-2 max-w-[85vw]"
+      className="px-2 sm:px-3 py-1 rounded-full glass-blush shadow-xs flex items-center space-x-1 sm:space-x-1.5"
     >
       {scenes.map((scene, idx) => {
         const isCurrent = idx === currentStep;
@@ -32,7 +32,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
           <button
             key={scene.id}
             onClick={() => handleClick(idx)}
-            className="group relative flex items-center p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#be6f7f] rounded-full"
+            className="group relative flex items-center p-0.5 sm:p-1 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#be6f7f] rounded-full"
             aria-label={`Go to ${scene.navTitle} scene`}
             aria-current={isCurrent ? 'step' : undefined}
           >
@@ -48,7 +48,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
                     : 'rgba(111, 83, 91, 0.25)',
                 }}
                 transition={{ duration: 0.3 }}
-                className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full"
+                className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full"
               />
 
               {isCurrent && (

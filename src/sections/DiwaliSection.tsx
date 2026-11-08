@@ -14,7 +14,11 @@ interface CelebrationParticle {
   color: string;
 }
 
-export const DiwaliSection: React.FC = () => {
+interface DiwaliSectionProps {
+  onContinue?: () => void;
+}
+
+export const DiwaliSection: React.FC<DiwaliSectionProps> = ({ onContinue }) => {
   const { diwali, senderName, girlfriendName } = websiteConfig;
   const [hasCelebrated, setHasCelebrated] = useState(false);
   const [celebrationParticles, setCelebrationParticles] = useState<CelebrationParticle[]>([]);
@@ -228,9 +232,24 @@ export const DiwaliSection: React.FC = () => {
               <p className="font-editorial text-sm sm:text-base text-[#2e1f24] leading-relaxed font-medium">
                 "{diwali.celebrateResponse}"
               </p>
-              <p className="font-editorial text-[11px] text-[#6f535b] italic pt-0.5">
-                Always wishing light and peace for my Chesta.
-              </p>
+              <div className="pt-2 border-t border-[#ecd9b5]/50 flex items-center justify-between">
+                <span className="font-editorial text-[11px] text-[#6f535b] italic">
+                  Always wishing light and peace for my Chesta.
+                </span>
+                {onContinue && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      soundManager.playPageTurnSound();
+                      onContinue();
+                    }}
+                    className="flex items-center space-x-1 text-xs text-[#85283f] font-editorial font-semibold hover:underline cursor-pointer"
+                  >
+                    <span>Final Words</span>
+                    <Heart className="w-3 h-3 fill-[#85283f]" />
+                  </button>
+                )}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

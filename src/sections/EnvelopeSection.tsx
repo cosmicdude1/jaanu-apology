@@ -48,7 +48,7 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7, delay: 0.22 }}
-        className="my-2 sm:my-4 mt-8 sm:mt-12"
+        className="my-2 sm:my-4 mt-12 sm:mt-16"
       >
         <Envelope
           isOpen={isOpen}
@@ -67,7 +67,11 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
         className="mt-6 flex items-center justify-center space-x-2 text-xs sm:text-sm text-[#6f535b] font-editorial bg-[#fffdfa]/80 px-4 py-1.5 rounded-full border border-[#ecd9b5]/60 shadow-sm"
       >
         <Sparkles className="w-4 h-4 text-[#c49954]" />
-        <span>Sealed with genuine remorse and everlasting affection.</span>
+        <span>
+          {isOpen
+            ? 'Keepsake unsealed. Next: A little Diwali wish for my jaanu 🪔'
+            : 'Sealed with genuine remorse and everlasting affection.'}
+        </span>
       </motion.div>
     </section>
   );

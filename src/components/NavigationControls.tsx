@@ -36,7 +36,7 @@ export const NavigationControls: React.FC<NavigationControlsProps> = ({
   };
 
   return (
-    <div className="fixed bottom-6 inset-x-0 z-40 flex justify-between items-center max-w-4xl mx-auto px-4 sm:px-6 pointer-events-none">
+    <div className="fixed bottom-4 sm:bottom-6 inset-x-0 z-40 flex justify-between items-center max-w-4xl mx-auto px-3.5 sm:px-6 pointer-events-none pb-[env(safe-area-inset-bottom)]">
       {/* Previous Scene Button */}
       <div className="pointer-events-auto">
         {!isFirst && (

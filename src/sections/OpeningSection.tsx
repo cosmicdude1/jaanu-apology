@@ -32,6 +32,17 @@ export const OpeningSection: React.FC<OpeningSectionProps> = ({ onBegin }) => {
 
   return (
     <section className="relative min-h-[82vh] flex flex-col items-center justify-center text-center px-4 py-6 sm:py-10 max-w-2xl mx-auto z-20">
+      {/* Editorial Ribbon Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="flex items-center space-x-2 px-3.5 py-1 rounded-full glass-blush text-[#85283f] text-xs tracking-widest uppercase font-editorial font-semibold mb-4 sm:mb-5 border border-[#ecd9b5]/60 shadow-xs"
+      >
+        <Sparkles className="w-3.5 h-3.5 text-[#c49954]" />
+        <span>A Personal Love Letter • For Chesta</span>
+      </motion.div>
+
       {/* Kept-Safe Studio Portrait Card of Chesta */}
       <motion.div
         initial={{ opacity: 0, y: 22, scale: 0.95 }}
@@ -152,6 +163,10 @@ export const OpeningSection: React.FC<OpeningSectionProps> = ({ onBegin }) => {
           <span>{opening.buttonLabel}</span>
           <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
         </button>
+
+        <p className="mt-3.5 text-xs text-[#957880] font-editorial italic tracking-wide">
+          "Take your time, my jaanu. Whenever you feel ready, step inside."
+        </p>
       </motion.div>
     </section>
   );

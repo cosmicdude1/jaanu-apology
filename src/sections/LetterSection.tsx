@@ -75,10 +75,17 @@ export const LetterSection: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: prefersReducedMotion ? 0 : 0.32 }}
-          className="space-y-5 sm:space-y-6 font-editorial text-[#2e1f24] text-base sm:text-lg md:text-[19px] leading-relaxed sm:leading-loose"
+          className="space-y-5 sm:space-y-6 font-editorial text-[#2e1f24] text-base sm:text-lg md:text-[19px] leading-relaxed sm:leading-loose border-l-2 border-[#ecd9b5]/60 pl-3.5 sm:pl-6"
         >
           {letter.paragraphs.map((paragraph, idx) => (
-            <p key={idx} className="first-letter:text-2xl sm:first-letter:text-3xl first-letter:font-bold first-letter:text-[#85283f]">
+            <p
+              key={idx}
+              className={
+                idx === 0
+                  ? 'first-letter:text-4xl sm:first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-[#85283f] first-letter:float-left first-letter:mr-2.5 first-letter:leading-none'
+                  : ''
+              }
+            >
               {paragraph}
             </p>
           ))}
