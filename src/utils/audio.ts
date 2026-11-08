@@ -89,31 +89,13 @@ class RomanticAudioManager {
   }
 
   /**
-   * Start generative ambient music loop or play dedicated audio file
+   * Start generative ambient music loop
    */
   public startMusic() {
     this.initContext();
     if (this.isPlayingMusic) return;
     this.isPlayingMusic = true;
-
-    // Check if the dedicated audio track exists
-    try {
-      if (!this.audioEl) {
-        this.audioEl = new Audio('/audio/jaanu-voice-note.mp3');
-        this.audioEl.loop = true;
-        this.audioEl.volume = 0.55;
-      }
-
-      const playPromise = this.audioEl.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Fallback to synthesized ambient chord arpeggios
-          this.startSynthesizedMusic();
-        });
-      }
-    } catch {
-      this.startSynthesizedMusic();
-    }
+    this.startSynthesizedMusic();
   }
 
   /**
@@ -123,7 +105,6 @@ class RomanticAudioManager {
     this.isPlayingMusic = false;
     if (this.audioEl) {
       this.audioEl.pause();
-      this.audioEl.currentTime = 0;
     }
     if (this.musicInterval !== null) {
       clearInterval(this.musicInterval);

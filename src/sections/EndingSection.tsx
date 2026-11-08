@@ -5,6 +5,7 @@ import { websiteConfig, EndingResponseOption } from '../content/letterContent';
 import { soundManager } from '../utils/audio';
 import { useLightbox } from '../context/LightboxContext';
 import { useReducedMotion } from '../hooks/useReducedMotion';
+import { VoiceNoteCard } from '../components/VoiceNoteCard';
 
 interface FloatingSparkle {
   id: number;
@@ -266,7 +267,17 @@ export const EndingSection: React.FC<EndingSectionProps> = ({ onRestart }) => {
         </div>
       </motion.div>
 
-      {/* 5. Optional Gentle Response Interaction (100% Client-Side & Non-Pressuring) */}
+      {/* 5. Dedicated Personal Voice Note Player Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.32 }}
+        className="w-full max-w-lg mb-6"
+      >
+        <VoiceNoteCard heading="Jaanu, ek aakhri baat… ❤️" audioSrc="/audio/jaanu-voice-note.mp3" />
+      </motion.div>
+
+      {/* 6. Optional Gentle Response Interaction (100% Client-Side & Non-Pressuring) */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
