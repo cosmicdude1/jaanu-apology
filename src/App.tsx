@@ -80,16 +80,14 @@ export const App: React.FC = () => {
         return <OpeningSection onBegin={handleNext} />;
       case 'apology':
         return <ApologySection />;
-      case 'personal-apology':
-        return <PersonalApologySection />;
       case 'promise':
         return <PromiseSection />;
       case 'memories':
         return <MemoriesSection />;
       case 'her-gallery':
         return <HerGallerySection />;
-      case 'diwali':
-        return <DiwaliSection />;
+      case 'personal-apology':
+        return <PersonalApologySection />;
       case 'letter':
         return <LetterSection />;
       case 'envelope':
@@ -99,6 +97,8 @@ export const App: React.FC = () => {
             onToggle={() => setIsEnvelopeOpen((prev) => !prev)}
           />
         );
+      case 'diwali':
+        return <DiwaliSection />;
       case 'ending':
         return <EndingSection onRestart={handleRestart} />;
       default:

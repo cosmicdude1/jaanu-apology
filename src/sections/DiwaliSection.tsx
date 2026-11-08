@@ -141,7 +141,7 @@ export const DiwaliSection: React.FC = () => {
           delay: prefersReducedMotion ? 0 : 0.35,
           ease: [0.16, 1, 0.3, 1],
         }}
-        className="relative w-full max-w-xl bg-[#fffdfa] rounded-2xl shadow-[0_16px_45px_-8px_rgba(140,56,35,0.12)] border border-[#ecd9b5] p-6 sm:p-9 text-left select-text mb-6 overflow-hidden"
+        className="relative w-full max-w-xl bg-[#fffdfa] rounded-2xl shadow-[0_16px_45px_-8px_rgba(140,56,35,0.12)] border border-[#ecd9b5] p-5 sm:p-9 text-left select-text mb-6 overflow-hidden"
       >
         {/* Subtle Marigold Corner Accents */}
         <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-bl from-[#fef3c7]/60 via-[#fed7aa]/20 to-transparent pointer-events-none" />
