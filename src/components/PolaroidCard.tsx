@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'motion/react';
-import { MapPin, Calendar, Heart, RotateCw, Sparkles, Upload } from 'lucide-react';
+import { MapPin, Calendar, Heart, RotateCw, Sparkles, Upload, Maximize2 } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 
 interface PolaroidCardProps {
@@ -15,6 +15,7 @@ interface PolaroidCardProps {
   imageUrl?: string;
   isActive?: boolean;
   onClick?: () => void;
+  onExpand?: () => void;
   onPhotoUpload?: (dataUrl: string) => void;
 }
 
@@ -30,6 +31,7 @@ export const PolaroidCard: React.FC<PolaroidCardProps> = ({
   imageUrl,
   isActive = false,
   onClick,
+  onExpand,
   onPhotoUpload,
 }) => {
   const displayTitle = title || tag || 'Cherished Memory';
@@ -48,6 +50,13 @@ export const PolaroidCard: React.FC<PolaroidCardProps> = ({
     e.stopPropagation();
     soundManager.playPageTurnSound();
     setIsFlipped((prev) => !prev);
+  };
+
+  const handleExpandClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onExpand) {
+      onExpand();
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,14 +114,18 @@ export const PolaroidCard: React.FC<PolaroidCardProps> = ({
           className="absolute inset-0 p-4 pb-5 flex flex-col justify-between"
         >
           {/* Photo Frame Window */}
-          <div className="relative w-full aspect-[4/3] bg-gradient-to-tr from-[#3a222a] via-[#4d2f38] to-[#29171d] rounded-sm overflow-hidden mb-2 shadow-inner flex flex-col justify-end p-3.5 group">
+          <div
+            onClick={onExpand ? handleExpandClick : undefined}
+            className="relative w-full aspect-[4/3] bg-gradient-to-tr from-[#3a222a] via-[#4d2f38] to-[#29171d] rounded-sm overflow-hidden mb-2 shadow-inner flex flex-col justify-end p-3.5 group cursor-pointer"
+            title={onExpand ? 'Click to view complete uncropped photo' : undefined}
+          >
             {imageUrl ? (
               <img
                 src={imageUrl}
                 alt={displayTitle}
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
             ) : null}
 
@@ -121,21 +134,34 @@ export const PolaroidCard: React.FC<PolaroidCardProps> = ({
 
             {/* Romantic tag badge */}
             {tag && (
-              <span className="absolute top-2.5 right-2.5 z-10 px-2 py-0.5 rounded-full text-[10px] uppercase font-semibold tracking-wider bg-[#85283f]/90 text-white backdrop-blur-md">
+              <span className="absolute top-2.5 right-2.5 z-10 px-2 py-0.5 rounded-full text-[10px] uppercase font-semibold tracking-wider bg-[#85283f]/90 text-white backdrop-blur-md shadow-xs">
                 {tag}
               </span>
             )}
 
-            {/* Subtle Upload Photo Shortcut on Hover */}
+            {/* Optional Change Photo Shortcut */}
             {onPhotoUpload && (
               <button
                 type="button"
                 onClick={triggerUpload}
-                className="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full text-[10px] font-sans font-medium bg-[#fffdfa]/85 text-[#2e1f24] hover:bg-white shadow-sm flex items-center space-x-1 opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity"
-                title="Replace with your own photograph"
+                className="absolute top-2.5 right-20 z-10 px-2 py-0.5 rounded-full text-[10px] font-sans font-medium bg-[#fffdfa]/85 text-[#2e1f24] hover:bg-white shadow-xs flex items-center space-x-1 opacity-0 group-hover:opacity-90 transition-opacity"
+                title="Upload custom photograph"
               >
                 <Upload className="w-3 h-3 text-[#85283f]" />
-                <span>Add Photo</span>
+                <span className="hidden xs:inline">Change</span>
+              </button>
+            )}
+
+            {/* Expand Full Photo Badge on Hover */}
+            {onExpand && (
+              <button
+                type="button"
+                onClick={handleExpandClick}
+                className="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full text-[10px] font-sans font-medium bg-[#fffdfa]/90 text-[#2e1f24] hover:bg-white shadow-sm flex items-center space-x-1 opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity"
+                title="View complete uncropped photo"
+              >
+                <Maximize2 className="w-3 h-3 text-[#85283f]" />
+                <span>Full View</span>
               </button>
             )}
 
@@ -175,15 +201,29 @@ export const PolaroidCard: React.FC<PolaroidCardProps> = ({
                 <span>{date}</span>
               </span>
 
-              <button
-                type="button"
-                onClick={handleFlipToggle}
-                className="flex items-center space-x-1 px-2 py-0.5 rounded text-[10px] uppercase font-sans font-semibold text-[#85283f] hover:bg-[#fbf5f2] transition-colors"
-                title="Flip to read note on back"
-              >
-                <RotateCw className="w-3 h-3" />
-                <span>Flip Note</span>
-              </button>
+              <div className="flex items-center space-x-1.5">
+                {onExpand && (
+                  <button
+                    type="button"
+                    onClick={handleExpandClick}
+                    className="flex items-center space-x-1 px-1.5 py-0.5 rounded text-[10px] uppercase font-sans font-semibold text-[#85283f] hover:bg-[#fbf5f2] transition-colors"
+                    title="View full photo"
+                  >
+                    <Maximize2 className="w-3 h-3" />
+                    <span>View</span>
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  onClick={handleFlipToggle}
+                  className="flex items-center space-x-1 px-1.5 py-0.5 rounded text-[10px] uppercase font-sans font-semibold text-[#85283f] hover:bg-[#fbf5f2] transition-colors"
+                  title="Flip to read note on back"
+                >
+                  <RotateCw className="w-3 h-3" />
+                  <span>Flip</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -199,7 +239,7 @@ export const PolaroidCard: React.FC<PolaroidCardProps> = ({
           <div className="space-y-3">
             <div className="flex items-center justify-between border-b border-[#ecd9b5] pb-2">
               <span className="text-[10px] tracking-widest uppercase font-mono text-[#957880]">
-                Memory Note #{tag || '01'}
+                {tag || 'Cherished Memory'}
               </span>
               <Sparkles className="w-3.5 h-3.5 text-[#c49954]" />
             </div>

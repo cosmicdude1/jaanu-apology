@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, RotateCcw, Sparkles, MessageCircleHeart, Check } from 'lucide-react';
+import { Heart, RotateCcw, Sparkles, MessageCircleHeart, Check, Maximize2 } from 'lucide-react';
 import { websiteConfig, EndingResponseOption } from '../content/letterContent';
 import { soundManager } from '../utils/audio';
+import { useLightbox } from '../context/LightboxContext';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 
 interface FloatingSparkle {
@@ -18,7 +19,8 @@ interface EndingSectionProps {
 }
 
 export const EndingSection: React.FC<EndingSectionProps> = ({ onRestart }) => {
-  const { ending, senderName } = websiteConfig;
+  const { ending, senderName, herSecondPhoto, girlfriendName } = websiteConfig;
+  const { openPhoto } = useLightbox();
   const [responseIndex, setResponseIndex] = useState(0);
   const [hasInteractedWithHeart, setHasInteractedWithHeart] = useState(false);
   const [heartPulses, setHeartPulses] = useState(0);
@@ -63,6 +65,16 @@ export const EndingSection: React.FC<EndingSectionProps> = ({ onRestart }) => {
         setSparkles([]);
       }, 1400);
     }
+  };
+
+  const handleExpandHerPhoto = () => {
+    openPhoto({
+      src: herSecondPhoto,
+      title: `${girlfriendName} • My Radiant Jaanu`,
+      caption: 'Your smile lights up my whole world, Chesta.',
+      tag: 'Forever Cherished',
+      subnote: 'Wishing you a bright and beautiful Diwali • With bettu’s endless love',
+    });
   };
 
   // Optional Response Interaction (Zero server data, pure local validation)
@@ -131,7 +143,7 @@ export const EndingSection: React.FC<EndingSectionProps> = ({ onRestart }) => {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#fffdfa] border-2 border-[#d8b8ad] flex items-center justify-center group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#85283f] transition-all"
+          className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#fffdfa] border-2 border-[#d8b8ad] flex items-center justify-center group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#85283f] transition-all cursor-pointer"
           aria-label="Tap to interact with the heart"
         >
           <motion.div
@@ -190,17 +202,63 @@ export const EndingSection: React.FC<EndingSectionProps> = ({ onRestart }) => {
         </p>
       </motion.div>
 
-      {/* 3. Sincere, Peaceful Unpressured Final Message Card */}
+      {/* 3. Chesta's Second Portrait Keepsake Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 12, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.22 }}
+        className="mb-6 flex justify-center"
+      >
+        <div
+          onClick={handleExpandHerPhoto}
+          role="button"
+          tabIndex={0}
+          aria-label="View complete photograph of Chesta"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleExpandHerPhoto();
+            }
+          }}
+          className="group relative cursor-pointer select-none rounded-xl bg-[#fffdfa] p-2.5 pb-3 shadow-[0_10px_28px_-6px_rgba(70,35,45,0.1)] border border-[#ecd9b5] transition-all duration-300 hover:scale-105 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#85283f]"
+        >
+          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-4 bg-[#e8cec5]/90 border-x border-[#d8b8ad]/60 rotate-1 shadow-xs z-20" />
+          <div className="relative w-40 sm:w-48 aspect-[3/4] rounded-lg overflow-hidden bg-[#2a171f]">
+            <img
+              src={herSecondPhoto}
+              alt="Chesta smiling"
+              className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-1 text-white text-[11px] font-editorial">
+              <Maximize2 className="w-3.5 h-3.5 text-[#c49954]" />
+              <span>Tap full photo</span>
+            </div>
+          </div>
+          <p className="font-script text-base text-[#2e1f24] font-medium pt-1.5 text-center">
+            "My radiant jaanu"
+          </p>
+        </div>
+      </motion.div>
+
+      {/* 4. Sincere Final Message & Warm Diwali Blessing Card */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.25 }}
-        className="p-6 sm:p-8 paper-card max-w-lg text-[#3a252c] font-editorial text-base sm:text-lg leading-relaxed shadow-sm text-left sm:text-center mb-6"
+        transition={{ duration: 0.6, delay: 0.28 }}
+        className="p-6 sm:p-8 paper-card max-w-lg text-[#3a252c] font-editorial text-base sm:text-lg leading-relaxed shadow-sm text-left sm:text-center mb-6 space-y-4"
       >
         <p className="italic">
           "{ending.finalMessage}"
         </p>
-        <div className="mt-5 pt-4 border-t border-[#f0dfd2] flex items-center justify-center space-x-2 text-[#85283f]">
+
+        {/* Festive Diwali Blessing Badge */}
+        <div className="p-3.5 rounded-xl bg-[#fbf5f2] border border-[#ecd9b5] text-xs sm:text-sm text-[#85283f] font-editorial flex items-center justify-center space-x-2 text-center">
+          <Sparkles className="w-4 h-4 text-[#c49954] shrink-0" />
+          <span className="font-medium">{ending.diwaliBlessing}</span>
+        </div>
+
+        <div className="pt-3 border-t border-[#f0dfd2] flex items-center justify-center space-x-2 text-[#85283f]">
           <Sparkles className="w-4 h-4 text-[#c49954]" />
           <span className="font-script text-2xl font-bold text-[#2e1f24]">
             {senderName}
@@ -208,7 +266,7 @@ export const EndingSection: React.FC<EndingSectionProps> = ({ onRestart }) => {
         </div>
       </motion.div>
 
-      {/* 4. Optional Gentle Response Interaction (100% Client-Side & Non-Pressuring) */}
+      {/* 5. Optional Gentle Response Interaction (100% Client-Side & Non-Pressuring) */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -229,7 +287,7 @@ export const EndingSection: React.FC<EndingSectionProps> = ({ onRestart }) => {
                 key={opt.id}
                 type="button"
                 onClick={() => handleSelectOption(opt)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-editorial transition-all flex items-center space-x-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#85283f] ${
+                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-editorial transition-all flex items-center space-x-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#85283f] cursor-pointer ${
                   isSelected
                     ? 'bg-[#85283f] text-white shadow-md ring-2 ring-[#be6f7f]/40'
                     : 'bg-[#fffdfa] text-[#4a353c] border border-[#d8b8ad] hover:border-[#85283f] shadow-sm'
@@ -268,7 +326,7 @@ export const EndingSection: React.FC<EndingSectionProps> = ({ onRestart }) => {
         </AnimatePresence>
       </motion.div>
 
-      {/* 5. Restart Journey Button */}
+      {/* 6. Restart Journey Button */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}

@@ -23,7 +23,7 @@ export interface SceneMeta {
 
 export interface MemoryItem {
   id: string;
-  imagePath: string; // Local asset path under public/images/memories/
+  imagePath: string; // Local asset path
   caption: string;
   date?: string;
   shortDescription?: string;
@@ -48,10 +48,19 @@ export interface EndingResponseOption {
 }
 
 export interface LetterContentConfig {
-  // 1. Personal Identifiers
+  // 1. Personal Identifiers & Real Photographs
   girlfriendName: string;
   senderName: string;
   petNameForHer: string;
+  herMainPhoto: string;
+  herSecondPhoto: string;
+  meSorryPhoto: string;
+  meSorryDetails: {
+    headline: string;
+    caption: string;
+    diwaliWish: string;
+    loveNote: string;
+  };
 
   // 2. Opening Section
   opening: {
@@ -107,6 +116,7 @@ export interface LetterContentConfig {
     headline: string;
     subtitle: string;
     finalMessage: string;
+    diwaliBlessing: string;
     heartPrompt: string;
     heartResponses: string[];
     responseOptions: EndingResponseOption[];
@@ -118,11 +128,21 @@ export interface LetterContentConfig {
 
 export const websiteConfig: LetterContentConfig = {
   // ===================================================================
-  // 1. NAMES & IDENTIFIERS
+  // 1. NAMES & REAL PHOTOGRAPHS
   // ===================================================================
   girlfriendName: 'Chesta',
   senderName: 'bettu',
   petNameForHer: 'jaanu',
+
+  herMainPhoto: '/images/her/her-main.jpg',
+  herSecondPhoto: '/images/her/her-2.jpg',
+  meSorryPhoto: '/images/me-sorry/bettu-sorry.jpg',
+  meSorryDetails: {
+    headline: 'Forgive your bettu, jaanu',
+    caption: 'Holding my ears with genuine remorse, asking for my jaanu’s forgiveness.',
+    diwaliWish: 'Wishing my sweetest Chesta a joyful, blessed, and happy Diwali.',
+    loveNote: 'I love you so, so much, jaanu. Always and forever.',
+  },
 
   // ===================================================================
   // 2. OPENING SECTION
@@ -195,71 +215,83 @@ export const websiteConfig: LetterContentConfig = {
   },
 
   // ===================================================================
-  // 5. MEMORY GALLERY
+  // 5. MEMORY GALLERY - REAL VIDEO CALL & PORTRAIT PHOTOGRAPHS
   // ===================================================================
   memories: [
     {
       id: 'mem-1',
-      imagePath: '/images/memories/memory-1.svg',
-      caption: 'The way your smile brightens everything around us',
-      date: 'Our Quiet Moments',
-      location: 'Where Time Felt Still',
+      imagePath: '/images/video-call/videocall-1.jpg',
+      caption: 'Late night video calls where hours vanished like minutes',
+      date: 'Midnight Smiles',
+      location: 'Across Our Screens',
       shortDescription:
-        'I still remember how easy it feels to talk to you about everything in the world, jaanu.',
-      tag: 'Memory 01',
+        'No matter how long or tiring the day was, seeing your sleepy smile through the screen made everything peaceful and right at home.',
+      tag: 'Video Call Moment 1',
       rotation: -1.5,
     },
     {
       id: 'mem-2',
-      imagePath: '/images/memories/memory-2.svg',
-      caption: 'Our uncontrollable laughter over the simplest little things',
-      date: 'Pure Joy',
-      location: 'Just You & Me',
+      imagePath: '/images/video-call/videocall-2.jpg',
+      caption: 'Uncontrollable laughter only you and I could share',
+      date: 'Pure Happiness',
+      location: 'Our Safe Space',
       shortDescription:
-        'Your laugh has always been bettu’s favorite sound in the world.',
-      tag: 'Memory 02',
+        'Your silly expressions and sweet giggles have always been bettu’s absolute favorite sound in the world.',
+      tag: 'Video Call Moment 2',
       rotation: 1.8,
     },
     {
       id: 'mem-3',
-      imagePath: '/images/memories/memory-3.svg',
-      caption: 'Quiet evenings when no words were needed, just being together',
-      date: 'Peaceful Silence',
-      location: 'Side by Side',
+      imagePath: '/images/video-call/videocall-3.jpg',
+      caption: 'Quiet calls when just seeing you brought warmth',
+      date: 'Comforting Silence',
+      location: 'Close at Heart',
       shortDescription:
-        'Moments where simply holding your hand gave me all the comfort I ever needed.',
-      tag: 'Memory 03',
+        'Even in moments when neither of us spoke a word, having you on the other end gave me all the comfort I ever needed.',
+      tag: 'Video Call Moment 3',
       rotation: -1.2,
     },
     {
       id: 'mem-4',
-      imagePath: '/images/memories/memory-4.svg',
-      caption: 'Late night conversations whispering about our dreams',
-      date: 'Starlight & Secrets',
-      location: 'Under the Quiet Sky',
+      imagePath: '/images/video-call/videocall-4.jpg',
+      caption: 'Screens apart, but closer than ever in my heart',
+      date: 'Forever Connected',
+      location: 'Always With You',
       shortDescription:
-        'Every conversation with you reminds me how lucky I am to share my thoughts with my Chesta.',
-      tag: 'Memory 04',
+        'Distance has never had any power over how deeply bettu loves, respects, and cherishes his jaanu.',
+      tag: 'Video Call Moment 4',
       rotation: 1.6,
+    },
+    {
+      id: 'mem-5',
+      imagePath: '/images/her/her-2.jpg',
+      caption: 'That radiant smile of yours that lights up my whole world',
+      date: 'Simply Breathtaking',
+      location: 'Locked In My Soul',
+      shortDescription:
+        'Chesta, you look so effortlessly radiant here. Every time I see this picture, I remember why my heart belongs to you.',
+      tag: 'My Lovely Jaanu',
+      rotation: -1.0,
     },
   ],
 
   // ===================================================================
-  // 6. MAIN LETTER
+  // 6. MAIN LETTER - SINCERE, DIWALI WISH & ENDLESS DEVOTION
   // ===================================================================
   letter: {
-    salutation: 'Dearest Chesta, my jaanu,',
+    salutation: 'Dearest Chesta, my sweetest jaanu,',
     intro:
       'I am writing this letter not to rush you past what happened, but to offer you my complete honesty, my heartfelt apologies, and my quiet reflection.',
     paragraphs: [
       'I have thought a great deal about where I went wrong. Seeing you hurt, quiet, or carrying distress because of my thoughtlessness is truly painful, because your peace of mind is what I care about above all else. You treat me with so much grace, patience, and warmth, and you deserved that same unwavering tenderness from bettu in return.',
-      'I am not offering excuses, stress, or bad timing to justify my behavior. When I fell short, it was simply my failure to be mindful, patient, and emotionally aware. Recognizing that makes me truly sorry, and it has pushed me to look closely at myself and how I react under pressure.',
+      'I am not offering excuses, stress, or bad timing to justify my behavior. When I fell short, it was simply my failure to be mindful, patient, and emotionally aware. Recognizing that makes me truly sorry from the bottom of my heart, and it has pushed me to look closely at myself and how I react under pressure.',
+      'As we celebrate this festive season of light, I want to wish my dearest Chesta a very Happy Diwali. May your days be filled with brightness, peace, laughter, and the warmth you bring into my life. My sincere wish is to be someone who brings light to your heart, never shadow.',
       'I want you to know the concrete steps I am taking: I am practicing pausing before responding, prioritizing listening over reacting, and making sure I communicate my feelings with care rather than thoughtlessness. I know trust and peace are rebuilt through steady behavior over time, not just words on a screen.',
-      'Most importantly, Chesta, I want to respect your feelings and your timeline. I do not expect you to set your feelings aside or pretend nothing happened. You deserve the time and space you need, and I will be right here—listening, understanding, and committed to loving you with the care you deserve.',
+      'Most importantly, Chesta, I want to respect your feelings and your timeline. I do not expect you to set your feelings aside or pretend nothing happened. You deserve the time and space you need, and bettu will be right here—listening, understanding, and committed to loving you with the care you deserve.',
     ],
-    closing: 'Always and entirely yours,',
-    dateString: 'Today & Every Tomorrow',
-    postscript: 'P.S. Whenever you feel ready to talk, bettu is here to listen with an open heart.',
+    closing: 'Always, entirely, and devotedly yours,',
+    dateString: 'Happy Diwali & Every Tomorrow',
+    postscript: 'P.S. Holding my ears forever until my jaanu smiles again. I love you with all my heart, Chesta.',
   },
 
   // ===================================================================
@@ -281,12 +313,15 @@ export const websiteConfig: LetterContentConfig = {
     subtitle: 'Take all the time you need, Chesta. There is no rush, only love.',
     finalMessage:
       'Chesta, please take all the time and space you need to heal. There is no pressure, no expectation, and no rush. I simply wanted you to know how genuinely sorry bettu is, how deeply I respect you, and how grateful I am for every single day I have spent with my jaanu.',
+    diwaliBlessing:
+      'Happy Diwali, my sweetest jaanu! May this year bring light, peace, and boundless joy into your beautiful life.',
     heartPrompt: 'Tap the heart to send a quiet hug',
     heartResponses: [
       'Sending you endless warmth and gentle care, jaanu...',
       'Holding you softly in my thoughts, Chesta...',
       'With all of bettu’s patience, love, and respect...',
-      'Always right here whenever you need me, my jaanu...',
+      'Wishing you a glowing, peaceful Happy Diwali, my jaanu...',
+      'Always right here whenever you need me, Chesta...',
     ],
     responseOptions: [
       {
@@ -318,7 +353,7 @@ export const websiteConfig: LetterContentConfig = {
   // ===================================================================
   scenes: [
     { id: 'opening', index: 0, navTitle: 'Welcome', shortLabel: 'Start' },
-    { id: 'apology', index: 1, navTitle: 'My Apology', shortLabel: 'Remorse' },
+    { id: 'apology', index: 1, navTitle: 'My Apology', shortLabel: 'Sorry' },
     { id: 'promise', index: 2, navTitle: 'My Promise', shortLabel: 'Vows' },
     { id: 'memories', index: 3, navTitle: 'Our Story', shortLabel: 'Memories' },
     { id: 'letter', index: 4, navTitle: 'The Letter', shortLabel: 'Letter' },

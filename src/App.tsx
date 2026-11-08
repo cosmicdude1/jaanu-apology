@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { websiteConfig, SceneId } from './content/letterContent';
 import { soundManager } from './utils/audio';
 import { useReducedMotion } from './hooks/useReducedMotion';
+import { LightboxProvider } from './context/LightboxContext';
 
 // Components
 import { BackgroundAtmosphere } from './components/BackgroundAtmosphere';
@@ -124,57 +125,59 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#fbf5f2] text-[#2e1f24] overflow-x-hidden flex flex-col justify-between selection:bg-[#be6f7f]/20 selection:text-[#85283f]">
-      {/* Dynamic Ambient Atmospheric Glows */}
-      <BackgroundAtmosphere currentScene={currentSceneId} />
+    <LightboxProvider>
+      <div className="relative min-h-screen bg-[#fbf5f2] text-[#2e1f24] overflow-x-hidden flex flex-col justify-between selection:bg-[#be6f7f]/20 selection:text-[#85283f]">
+        {/* Dynamic Ambient Atmospheric Glows */}
+        <BackgroundAtmosphere currentScene={currentSceneId} />
 
-      {/* Delicate Floating Petals & Heart Particles */}
-      <FloatingPetals petalCount={12} heartCount={5} />
+        {/* Delicate Floating Petals & Heart Particles */}
+        <FloatingPetals petalCount={12} heartCount={5} />
 
-      {/* Top Global Controls */}
-      <header className="relative z-40 w-full px-4 sm:px-6 pt-4 pb-2">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <span className="hidden md:inline font-editorial text-xs tracking-[0.25em] uppercase text-[#85283f] font-semibold">
-            {websiteConfig.opening.title}
-          </span>
+        {/* Top Global Controls */}
+        <header className="relative z-40 w-full px-4 sm:px-6 pt-4 pb-2">
+          <div className="max-w-6xl mx-auto flex items-center justify-between">
+            <span className="hidden md:inline font-editorial text-xs tracking-[0.25em] uppercase text-[#85283f] font-semibold">
+              {websiteConfig.opening.title}
+            </span>
 
-          <ProgressIndicator
-            currentStep={currentSceneIndex}
-            scenes={scenes}
-            onSelectStep={handleSelectScene}
-          />
+            <ProgressIndicator
+              currentStep={currentSceneIndex}
+              scenes={scenes}
+              onSelectStep={handleSelectScene}
+            />
 
-          <MusicToggle
-            isPlaying={isPlayingMusic}
-            onToggle={handleToggleMusic}
-          />
-        </div>
-      </header>
+            <MusicToggle
+              isPlaying={isPlayingMusic}
+              onToggle={handleToggleMusic}
+            />
+          </div>
+        </header>
 
-      {/* Main Narrative Stage with AnimatePresence Transitions */}
-      <main className="relative z-20 flex-1 flex items-center justify-center pt-20 sm:pt-24 pb-28 sm:pb-32 px-3 sm:px-6">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSceneId}
-            variants={pageVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="w-full flex items-center justify-center"
-          >
-            {renderCurrentSection()}
-          </motion.div>
-        </AnimatePresence>
-      </main>
+        {/* Main Narrative Stage with AnimatePresence Transitions */}
+        <main className="relative z-20 flex-1 flex items-center justify-center pt-20 sm:pt-24 pb-28 sm:pb-32 px-3 sm:px-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSceneId}
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="w-full flex items-center justify-center"
+            >
+              {renderCurrentSection()}
+            </motion.div>
+          </AnimatePresence>
+        </main>
 
-      {/* Bottom Floating Navigation Controls */}
-      <NavigationControls
-        currentIndex={currentSceneIndex}
-        totalScenes={scenes.length}
-        onNext={handleNext}
-        onPrev={handlePrev}
-      />
-    </div>
+        {/* Bottom Floating Navigation Controls */}
+        <NavigationControls
+          currentIndex={currentSceneIndex}
+          totalScenes={scenes.length}
+          onNext={handleNext}
+          onPrev={handlePrev}
+        />
+      </div>
+    </LightboxProvider>
   );
 };
 
