@@ -23,6 +23,7 @@ import { DiwaliSection } from './sections/DiwaliSection';
 import { LetterSection } from './sections/LetterSection';
 import { EnvelopeSection } from './sections/EnvelopeSection';
 import { EndingSection } from './sections/EndingSection';
+import { PatakhaFinaleSection } from './sections/PatakhaFinaleSection';
 
 export const App: React.FC = () => {
   const [currentSceneIndex, setCurrentSceneIndex] = useState<number>(0);
@@ -101,6 +102,8 @@ export const App: React.FC = () => {
         return <DiwaliSection onContinue={handleNext} />;
       case 'ending':
         return <EndingSection onRestart={handleRestart} />;
+      case 'patakha-finale':
+        return <PatakhaFinaleSection onRestart={handleRestart} />;
       default:
         return <OpeningSection onBegin={handleNext} />;
     }

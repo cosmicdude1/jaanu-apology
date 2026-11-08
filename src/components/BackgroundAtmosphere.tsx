@@ -39,6 +39,12 @@ export const BackgroundAtmosphere: React.FC<BackgroundAtmosphereProps> = ({ curr
           orb2: 'rgba(255, 238, 230, 0.50)',
           orb3: 'rgba(240, 198, 208, 0.40)',
         };
+      case 'patakha-finale':
+        return {
+          orb1: 'rgba(126, 34, 206, 0.45)', // midnight royal purple
+          orb2: 'rgba(251, 191, 36, 0.50)', // radiant champagne gold
+          orb3: 'rgba(225, 29, 72, 0.35)',  // romantic deep rose
+        };
       default:
         return {
           orb1: 'rgba(245, 216, 210, 0.45)',

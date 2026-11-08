@@ -15,7 +15,8 @@ export type SceneId =
   | 'diwali'
   | 'letter'
   | 'envelope'
-  | 'ending';
+  | 'ending'
+  | 'patakha-finale';
 
 export interface SceneMeta {
   id: SceneId;
@@ -93,6 +94,19 @@ export interface EndingResponseOption {
   label: string;
   replyMessage: string;
   subnote: string;
+}
+
+export interface PatakhaFinaleConfig {
+  pageTitle: string;
+  headline: string;
+  personalNickname: string;
+  tagline: string;
+  firstSightCaption: string;
+  firstSightSubnote: string;
+  paragraphs: string[];
+  finalNote: string[];
+  diyaButtonLabel: string;
+  diyaBlessingMessage: string;
 }
 
 export interface LetterContentConfig {
@@ -183,7 +197,10 @@ export interface LetterContentConfig {
     responseOptions: EndingResponseOption[];
   };
 
-  // 13. Navigation Scenes
+  // 13. Meri Diwali Patakha Final Scene
+  patakhaFinale: PatakhaFinaleConfig;
+
+  // 14. Navigation Scenes
   scenes: SceneMeta[];
 }
 
@@ -477,7 +494,34 @@ export const websiteConfig: LetterContentConfig = {
   },
 
   // ===================================================================
-  // 12. SCENES NAVIGATION (Narrative Story Arc)
+  // 13. MERI DIWALI PATAKHA FINAL SCENE
+  // ===================================================================
+  patakhaFinale: {
+    pageTitle: 'Meri Diwali Patakha',
+    headline: 'Meri Diwali Patakha, Jaanu! 🪔❤️',
+    personalNickname: 'Jaanu',
+    tagline: 'A romantic Diwali finale under the starlit sky for my favorite patakha.',
+    firstSightCaption: 'First Sight. Forever in my heart.',
+    firstSightSubnote: 'The very first moment I saw you, my world found its gentle light.',
+    paragraphs: [
+      'Happy Diwali, meri jaanu. 🪔❤️',
+      'My little patakha, you bring so much warmth, happiness, and light into my life.',
+      'I hope this Diwali fills your heart with beautiful moments, peaceful smiles, and all the happiness you deserve.',
+      'And my sweetest little wish is that we get to celebrate many more Diwalis together, creating memories that we will always treasure.',
+      'You are my favorite person, my cutest patakha, and a beautiful part of my world.',
+      'Happy Diwali, jaanu. I love you endlessly. ❤️',
+    ],
+    finalNote: [
+      'Happy Diwali, my little patakha.',
+      'You make every moment brighter.',
+      'I love you endlessly. ❤️',
+    ],
+    diyaButtonLabel: 'Light a little diya for us 🪔',
+    diyaBlessingMessage: 'One more Diwali, one more beautiful memory with you. ❤️',
+  },
+
+  // ===================================================================
+  // 14. SCENES NAVIGATION (Narrative Story Arc)
   // ===================================================================
   scenes: [
     { id: 'opening', index: 0, navTitle: 'Welcome', shortLabel: 'Start' },
@@ -490,5 +534,6 @@ export const websiteConfig: LetterContentConfig = {
     { id: 'envelope', index: 7, navTitle: 'A Keepsake', shortLabel: 'Unseal' },
     { id: 'diwali', index: 8, navTitle: 'Diwali Wish', shortLabel: 'Diwali' },
     { id: 'ending', index: 9, navTitle: 'Forever', shortLabel: 'Peace' },
+    { id: 'patakha-finale', index: 10, navTitle: 'Meri Patakha', shortLabel: 'Patakha' },
   ],
 };
