@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+:root {
+  /* =====================================================================
+     A LETTER FROM MY HEART - VISUAL DESIGN SYSTEM TOKENS
+     Palette: Warm blush pink, soft ivory stationery, deep warm brown ink,
+     muted rose brown secondary, dusty rose accent, elegant deep rose wax.
+     ===================================================================== */
+
+  /* Surface & Backgrounds */
+  --color-bg-blush: #fbf5f2;
+  --color-bg-blush-subtle: #f8ebe6;
+  --color-bg-blush-accent: #f3ded6;
+  --color-surface-ivory: #fffdfa;
+  --color-surface-ivory-warm: #fbf7f0;
+  --color-surface-border: rgba(111, 83, 91, 0.12);
+
+  /* Typography Colors */
+  --color-text-primary: #2e1f24;     /* Deep warm brown ink */
+  --color-text-secondary: #6f535b;   /* Muted rose brown */
+  --color-text-muted: #957880;       /* Editorial caption / faint note */
+
+  /* Accents */
+  --color-accent-dusty: #be6f7f;     /* Dusty rose */
+  --color-accent-dusty-light: #e6b2bd;
+  --color-accent-deep: #85283f;      /* Elegant deep rose */
+  --color-accent-wine: #5a1727;      /* Wax seal burgundy */
+  --color-gold-wax: #c49954;         /* Gold foil / seal rim */
+  --color-gold-soft: #f2e5cf;
+
+  /* Font Families */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-script: 'Caveat', cursive;
+
+  /* Elevation & Shadows */
+  --shadow-paper: 0 4px 20px -2px rgba(46, 31, 36, 0.05), 0 12px 32px -4px rgba(133, 40, 63, 0.07);
+  --shadow-paper-hover: 0 8px 30px -4px rgba(46, 31, 36, 0.08), 0 20px 48px -6px rgba(133, 40, 63, 0.12);
+  --shadow-paper-subtle: 0 2px 10px rgba(46, 31, 36, 0.04);
+  --shadow-floating: 0 24px 60px -12px rgba(90, 23, 39, 0.12);
+  --shadow-envelope: 0 18px 45px -8px rgba(90, 23, 39, 0.14), 0 6px 16px -4px rgba(46, 31, 36, 0.06);
+}
+
+@theme {
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --font-script: var(--font-script);
+
+  --color-blush-50: #fdfaf8;
+  --color-blush-100: var(--color-bg-blush);
+  --color-blush-200: var(--color-bg-blush-subtle);
+  --color-blush-300: var(--color-bg-blush-accent);
+  --color-blush-400: #e8c6ba;
+
+  --color-ivory: var(--color-surface-ivory);
+  --color-ivory-warm: var(--color-surface-ivory-warm);
+
+  --color-brown-primary: var(--color-text-primary);
+  --color-brown-secondary: var(--color-text-secondary);
+  --color-brown-muted: var(--color-text-muted);
+
+  --color-rose-dusty: var(--color-accent-dusty);
+  --color-rose-dusty-light: var(--color-accent-dusty-light);
+  --color-rose-deep: var(--color-accent-deep);
+  --color-rose-wine: var(--color-accent-wine);
+
+  --color-gold-foil: var(--color-gold-wax);
+  --color-gold-soft: var(--color-gold-soft);
+}
+
+@layer base {
+  *, ::before, ::after {
+    border-color: var(--color-surface-border);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg-blush);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Accessibility Visible Focus Ring */
+  button:focus-visible,
+  a:focus-visible,
+  [tabindex]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-bg-blush), 0 0 0 4px var(--color-accent-dusty);
+  }
+}
+
+/* =====================================================================
+   REUSABLE DESIGN SYSTEM UTILITIES
+   ===================================================================== */
+
+/* Typography Helpers */
+.font-editorial {
+  font-family: var(--font-serif);
+}
+
+.font-script {
+  font-family: var(--font-script);
+}
+
+/* Warm Ivory Paper Card Surface */
+.paper-card {
+  background-color: var(--color-surface-ivory);
+  border: 1px solid var(--color-surface-border);
+  box-shadow: var(--shadow-paper);
+  border-radius: 1.25rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.paper-card:hover {
+  box-shadow: var(--shadow-paper-hover);
+}
+
+/* Ethereal Frosted Blush Glass (for sticky navigation, pills, badges) */
+.glass-blush {
+  background: rgba(255, 253, 250, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(190, 111, 127, 0.16);
+  box-shadow: 0 4px 20px -2px rgba(70, 35, 45, 0.05);
+}
+
+/* Elegant Refined Buttons */
+.btn-pill-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-accent-deep);
+  color: #fffdfa;
+  border-radius: 9999px;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  box-shadow: 0 4px 16px -2px rgba(133, 40, 63, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-pill-primary:hover {
+  background-color: #722135;
+  box-shadow: 0 6px 20px -2px rgba(133, 40, 63, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-pill-primary:active {
+  transform: translateY(0px) scale(0.98);
+}
+
+.btn-pill-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-ivory);
+  color: var(--color-text-primary);
+  border-radius: 9999px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  border: 1px solid rgba(190, 111, 127, 0.25);
+  box-shadow: 0 2px 10px rgba(46, 31, 36, 0.04);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-pill-secondary:hover {
+  background-color: #fffdfa;
+  border-color: var(--color-accent-dusty);
+  color: var(--color-accent-deep);
+  transform: translateY(-1px);
+}
+
+/* Subtle Film Grain / Paper Fiber Noise Texture */
+.paper-texture {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+/* Smooth Rose-Toned Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-blush);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(190, 111, 127, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(190, 111, 127, 0.55);
+}
