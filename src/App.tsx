@@ -152,7 +152,7 @@ export const App: React.FC = () => {
       </header>
 
       {/* Main Narrative Stage with AnimatePresence Transitions */}
-      <main className="relative z-20 flex-1 flex items-center justify-center py-5 sm:py-8 px-2 sm:px-4">
+      <main className="relative z-20 flex-1 flex items-center justify-center pt-20 sm:pt-24 pb-28 sm:pb-32 px-3 sm:px-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSceneId}

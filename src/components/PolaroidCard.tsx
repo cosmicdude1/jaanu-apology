@@ -92,7 +92,7 @@ export const PolaroidCard: React.FC<PolaroidCardProps> = ({
         }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         style={{ transformStyle: 'preserve-3d' }}
-        className={`relative w-72 sm:w-80 h-[380px] bg-[#fffdfa] text-[#2e1f24] p-4 pb-6 rounded-xl shadow-[0_10px_30px_-5px_rgba(46,31,36,0.08)] border border-[#ecd9b5] cursor-pointer select-none transition-shadow ${
+        className={`relative w-[264px] xs:w-72 sm:w-80 h-[380px] bg-[#fffdfa] text-[#2e1f24] p-4 pb-6 rounded-xl shadow-[0_10px_30px_-5px_rgba(46,31,36,0.08)] border border-[#ecd9b5] cursor-pointer select-none transition-shadow ${
           isActive ? 'ring-2 ring-[#be6f7f]/50 shadow-2xl' : 'hover:shadow-2xl'
         }`}
       >
@@ -109,7 +109,9 @@ export const PolaroidCard: React.FC<PolaroidCardProps> = ({
             {imageUrl ? (
               <img
                 src={imageUrl}
-                alt={title}
+                alt={displayTitle}
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 w-full h-full object-cover"
               />
             ) : null}

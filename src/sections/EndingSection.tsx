@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Heart, RotateCcw, Sparkles, MessageCircleHeart, Check } from 'lucide-react';
 import { websiteConfig, EndingResponseOption } from '../content/letterContent';
@@ -26,6 +26,16 @@ export const EndingSection: React.FC<EndingSectionProps> = ({ onRestart }) => {
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
 
   const prefersReducedMotion = useReducedMotion();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Clean up any pending sparkle timeouts on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   // Heart Click Interaction
   const handleHeartClick = () => {
@@ -45,7 +55,11 @@ export const EndingSection: React.FC<EndingSectionProps> = ({ onRestart }) => {
       }));
 
       setSparkles(newSparkles);
-      setTimeout(() => {
+
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(() => {
         setSparkles([]);
       }, 1400);
     }

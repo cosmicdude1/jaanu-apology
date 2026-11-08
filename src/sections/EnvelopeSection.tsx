@@ -48,7 +48,7 @@ export const EnvelopeSection: React.FC<EnvelopeSectionProps> = ({
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7, delay: 0.22 }}
-        className="my-2 sm:my-4"
+        className="my-2 sm:my-4 mt-8 sm:mt-12"
       >
         <Envelope
           isOpen={isOpen}

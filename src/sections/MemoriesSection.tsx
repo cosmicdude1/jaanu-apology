@@ -81,7 +81,7 @@ export const MemoriesSection: React.FC = () => {
         </button>
 
         {/* Swipeable Active Polaroid Card */}
-        <div className="w-full max-w-sm flex justify-center px-6">
+        <div className="w-full max-w-sm flex justify-center px-1 xs:px-4 sm:px-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeMemory.id}
